@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AppListaCompras.Models;
 using SQLite;
-using AppListaCompras.Models;
 
 namespace AppListaCompras.Helpers
 {
@@ -30,9 +25,21 @@ namespace AppListaCompras.Helpers
             return _conn.QueryAsync<Produto>(sql, p.Descricao, p.Preco, p.Quantidade, p.Id);
         }
 
+        public Task<List<Produto>> GetAll()
+        {
+            return _conn.Table<Produto>().ToListAsync();
+        }
+
         public Task<int> Delete(int id)
         {
             return _conn.Table<Produto>().DeleteAsync(i => i.Id == id);
+        }
+
+        public Task<List<Produto>> Search(string q)
+        {
+            string sql = "Select * from Produto where descricao like '%" + q + "%";
+
+            return _conn.QueryAsync<Produto>(sql);
         }
     }
 }
