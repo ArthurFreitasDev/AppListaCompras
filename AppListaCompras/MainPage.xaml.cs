@@ -41,6 +41,44 @@ namespace AppListaCompras
                 });
             }
         }
+
+        private void txt_search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string q = e.NewTextValue;
+            Lista_Produtos.Clear();
+            Task.Run(async () =>
+            {
+                List<Produto> tmp = await App.Db.Search(q);
+                foreach(Produto p in tmp)
+                {
+                    Lista_Produtos.Add(p);
+                }
+            });
+        }
+
+        private void ref_carregando_Refreshing(object sender, EventArgs e)
+        {
+            Lista_Produtos.Clear();
+            Task.Run(async () =>
+            {
+                List<Produto> tmp = await App.Db.GetAll();
+                foreach(Produto p in tmp)
+                {
+                    Lista_Produtos.Add(p);
+                }
+            });
+            ref_carregando.IsRefreshing = false;
+        }
+
+        private void list_produtos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_Clicked_Remover(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
