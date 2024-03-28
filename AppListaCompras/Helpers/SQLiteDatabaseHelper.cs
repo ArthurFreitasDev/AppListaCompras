@@ -37,7 +37,7 @@ namespace AppListaCompras.Helpers
 
         public Task<List<Produto>> Search(string q)
         {
-            string sql = "Select * from Produto where descricao like '%" + q + "%";
+            string sql = "Select * from Produto where descricao like '%" + q + "%'";
 
             return _conn.QueryAsync<Produto>(sql);
         }
