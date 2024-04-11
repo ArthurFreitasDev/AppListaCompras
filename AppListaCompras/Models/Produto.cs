@@ -20,7 +20,7 @@ namespace AppListaCompras.Models
                 
                 _descricao = value;
             }
-        }
+        }   
         public double Quantidade
         {
             get
